@@ -9,9 +9,10 @@ import {
   Predicate,
   Schedule,
 } from "effect";
-import { Command, Flag, Prompt } from "effect/unstable/cli";
+import { Command, Flag } from "effect/unstable/cli";
 import { Ansi, Box } from "effect-boxes";
 import { HorizontalSelect } from "../components/HorizontalSelect";
+import { MultiSelect } from "../components/MultiSelect";
 import { Select } from "../components/Select";
 import { TextInput } from "../components/TextInput";
 import { dryRunFlag, rootFlag, yesFlag } from "../flags";
@@ -438,7 +439,7 @@ const collectTargetsInteractive = Effect.gen(function* () {
     });
     const modules =
       availableModules.length > 0
-        ? yield* Prompt.multiSelect({
+        ? yield* MultiSelect({
             message: `Which modules do you want to add to "${kind}/${name}"?`,
             choices: availableModules.map((mod) => ({
               title: mod.title,
@@ -511,7 +512,7 @@ const collectTargetsInteractive = Effect.gen(function* () {
         });
 
         if (availableModules.length > 0) {
-          const newModules = yield* Prompt.multiSelect({
+          const newModules = yield* MultiSelect({
             message: `Select modules for "${t.kind}/${t.name}":`,
             choices: availableModules.map((mod) => ({
               title: mod.title,
